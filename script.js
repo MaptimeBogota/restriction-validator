@@ -290,7 +290,7 @@ $(document).ready(function() {
 			// Multiple vias, found but only 1 node is allowed
 			if(via.length > 1) {
 				$.each(via, function(none, tempVia) {
-					showError([tempVia.lat, tempVia.lon], rel, 'There are multiple "via"-nodes', false);
+					showError([tempVia.lat, tempVia.lon], rel, 'Hay varios nodos "via"', false);
 				});
 				return;
 			}
@@ -303,7 +303,7 @@ $(document).ready(function() {
 
 				// Has highway-tag?
 				if(way.tags.highway == undefined) {
-					showError([via.lat, via.lon], rel, 'There is a member way that has no "highway" tag', false);
+					showError([via.lat, via.lon], rel, 'Hay un camino de los miembros que no tiene la etiqueta de "highway"', false);
 					return;
 				}
 				var highway = way.tags.highway;
@@ -328,11 +328,11 @@ $(document).ready(function() {
 				// If there are vehicle restrictions we won't show an error, but we don't handle them
 				var tags = getElemList(rel.tags, true);
 				for(var i = 0; i < tags.length; i++) {
-					if(tags[i].startsWith('restriction:')) {
+					if(tags[i].startsWith('restriction:') && ! tags[i].startsWith('restriction:conditional')) {
 						return;
 					}
 				};
-				showError([via.lat, via.lon], rel, 'There is no "restriction"-tag', false);
+				showError([via.lat, via.lon], rel, 'No hay ninguna etiqueta de "restriction"', false);
 				return;
 			}
 			var type = rel.tags.restriction;
@@ -346,7 +346,7 @@ $(document).ready(function() {
 					warning = true;
 				}
 
-				showError([via.lat, via.lon], rel, 'Unknown restriction "' + escapeHTML(type) + '"', warning);
+				showError([via.lat, via.lon], rel, 'Restricción desconocida "' + escapeHTML(type) + '"', warning);
 				if(!warning) {
 					return;
 				}
@@ -355,32 +355,32 @@ $(document).ready(function() {
 			/* Check number of member types */
 			// No members
 			if(nFrom == 0) {
-				showError([via.lat, via.lon], rel, 'No "from"-members', false);
+				showError([via.lat, via.lon], rel, 'No hay miembros "from"', false);
 				return;
 			}
 			if(nTo == 0) {
-				showError([via.lat, via.lon], rel, 'No "to"-members', false);
+				showError([via.lat, via.lon], rel, 'No hay miembros "to"', false);
 				return;
 			}
 
 			// Multiple members (no return here as multiple types can be handled)
 			if(nFrom > 1 && type != 'no_entry') {
-				showError([via.lat, via.lon], rel, 'More than 1 "from"-members, but restriction is not "no_entry"', true);
+				showError([via.lat, via.lon], rel, 'Más de 1 miembro "from", pero la restricción no es "no_entry"', true);
 			}
 			if(nTo > 1 && type != 'no_entry') {
-				showError([via.lat, via.lon], rel, 'More than 1 "to"-members, but restriction is not "no_exit"', true);
+				showError([via.lat, via.lon], rel, 'Más de 1 miembro "to", pero la restricción no es "no_exit"', true);
 			}
 
 			// Unnecessary members
 			if(nUnknown > 0) {
-				showError([via.lat, via.lon], rel, 'There are ' + nUnknown + ' unnecessary relation members', true);
+				showError([via.lat, via.lon], rel, 'Hay ' + nUnknown + ' miembro innecesario en la relación', true);
 			}
 
 			/* Check if ways are connected to via node */
 			for(var i = 0; i < members.length; i++) {
 				var way = ways[members[i].way_ref];
 				if(via.id != way.nodes[0] && via.id != way.nodes[way.nodes.length - 1]) {
-					showError([via.lat, via.lon], rel, 'There are from/to-members that aren\'t connected to the via node', false);
+					showError([via.lat, via.lon], rel, 'Hay miembros from/to que no están conectados al nodo via', false);
 					return;
 				}
 			};
@@ -665,7 +665,7 @@ $(document).ready(function() {
 				if((type == 'to' && member.oneway == -1) ||
 					(type == 'from' && member.oneway == 1)
 				) {
-					showError(via.via, relations[rel.id], 'The "' + type + '"-member is a one-way street that goes in the wrong direction', false);
+					showError(via.via, relations[rel.id], 'El miembro "' + type + '" es una calle de un solo sentido que va en la dirección equivocada', false);
 					isValid = false;
 				}
 			});
@@ -700,7 +700,7 @@ $(document).ready(function() {
 			};
 
 			if(rel.access == 'only' && nAccess == rel.nTo) {
-				showError(via.via, relations[rel.id], 'Unnecessary restriction: There is no other turn possibility', true, '#66DE62');
+				showError(via.via, relations[rel.id], 'Restricción innecesaria: No hay otra posibilidad de giro', true, '#66DE62');
 			}
 		});
 
@@ -756,9 +756,9 @@ $(document).ready(function() {
 				var text;
 				if(way.tags.name != undefined) {
 					var name = escapeHTML(way.tags.name);
-					text = 'The restrictions at this node make the street "' + name + '" inaccessible (can\'t be entered from any street that is connected to the via-node). This might indicate that using "oneway" or "access=no" may be more appropriate than using restrictions.';
+					text = 'Las restricciones en este nodo hacen que la calle "' + nombre + '" sea inaccesible (no se puede entrar desde ninguna calle que esté conectada al nodo vía). Esto podría indicar que el uso de "oneway" o "access=no" puede ser más apropiado que el uso de restricciones.';
 				} else {
-					text = 'The restrictions at this node make a street inaccessible (can\'t be entered from any street that is connected to the via-node). This might indicate that using "oneway" or "access=no" may be more appropriate than using restrictions.';
+					text = 'Las restricciones en este nodo hacen que una calle sea inaccesible (no se puede entrar desde ninguna calle que esté conectada al nodo vía). Esto puede indicar que el uso de "oneway" o "access=no" puede ser más apropiado que el uso de restricciones.';
 				}
 
 				showError(via.via, via.via, text, true);
