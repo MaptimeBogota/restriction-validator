@@ -125,8 +125,8 @@ $(document).ready(function() {
 
 		// Default options
 		return {
-			center: [52.45, 13.35],
-			zoom: 14
+			center: [4.65342, -74.08374],
+			zoom: 15
 		};
 	}
 
