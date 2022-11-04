@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Restriction Validator</title>
+		<title>Validador de restricciones</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Shows OpenStreetMap restrictions and analyses them to find incorrect or unnecessary restrictions.">
+		<meta name="description" content="Muestra las restricciones de OpenStreetMap y las analiza para encontrar las incrrectas o innecesarias.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		<link rel="stylesheet" href="lib/Font-Awesome/css/font-awesome.min.css">
@@ -24,35 +24,44 @@
 	</head>
 	<body>
 		<div class="header">
-			<span class="title">OSM Restriction Validator</span>
+			<span class="title">Validador de restricciones de OSM</span>
 			<div class="menu">
-				<a href="#modal">About</a>
-				<a href="https://github.com/MorbZ/restriction-validator" target="_blank">Github</a>
+				<a href="#modal">Acerca de</a>
+				<a href="https://github.com/MaptimeBogota/restriction-validator" target="_blank">Github</a>
 			</div>
 		</div>
 		<div class="map-container">
 			<div class="map" id="map"></div>
 			<div class="zoom-hint">
-				<div>Please zoom in to load data</div>
+				<div>Has zoom para cargar los datos</div>
 			</div>
 			<div class="spinner" id="spinner"></div>
 		</div>
 		<div class="remodal" data-remodal-id="modal">
 			<button data-remodal-action="close" class="remodal-close"></button>
 			<p>
-				Shows <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> restrictions and analyses them to find incorrect or unnecessary <a href="http://wiki.openstreetmap.org/wiki/Relation:restriction" target="_blank">restrictions</a>. The <a href="http://wiki.openstreetmap.org/wiki/Overpass_API" target="_blank">Overpass API</a> is used to retrieve the data.
+				Muestra las restricciones de giro de  <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> 
+				y las analiza para identificar
+				<a href="http://wiki.openstreetmap.org/wiki/Relation:restriction" target="_blank">restricciones</a> incorrectas
+				o innecesarias . El <a href="http://wiki.openstreetmap.org/wiki/Overpass_API" target="_blank">API de Overpass</a>
+				se usa para recuperar los datos.
 			</p>
 			<p>
-				Green ways represent "only_"-restrictions, while red ways respresent "no_"-restrictions. White ways are connected to the via-node of some restriction, but not part of any restriction.
+				Los caminos verdes representan restricciones de tipo "only_".
+				Los caminos rojos representan restricciones de tipo "no_".
+				Los caminos blancos están conectados al nodo-vía de alguna restricción, pero no parte de cualquier
+				restricción.
 			</p>
 			<p>
-				Complete arrows represent one-way streets. Arrows on only one side of the green/red lines represent two-way streets, where the restriction only affects the shown direction.
+				Íconos de flechas completas representa calles en un solo sentido.
+				Felchas sobre un solo lado de las líneas verdes o rojas, represenan calles en doble via, donde la restricción solamente
+				afecta la dirección mostrada.
 			</p>
 			<p>
-				This tool has some limitations:<br>
-				- Restrictions where the "via"-member is a way are ignored<br>
-				- Restrictions for specific vehicle types, eg. "restriction:hgv" are ignored<br>
-				- Restrictions that contain non-car streets (e.g. cyclways) are ignored
+				Esta herramienta tiene sus limitaciones:
+				- Las restricciones donde el miembro "via" es un way son ignorados.<br>
+				- Las restricciones for tipos específicos de vehículos. Por ejemplo, "restriction:hgv" se ignoran.<br>
+				- Las restricciones que contienen calles para no carros (por ejemplo, ciclocaminos) se ignoran.
 			</p>
 		</div>
 	</body>
