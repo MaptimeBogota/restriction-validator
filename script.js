@@ -756,7 +756,7 @@ $(document).ready(function() {
 				var text;
 				if(way.tags.name != undefined) {
 					var name = escapeHTML(way.tags.name);
-					text = 'Las restricciones en este nodo hacen que la calle "' + nombre + '" sea inaccesible (no se puede entrar desde ninguna calle que esté conectada al nodo vía). Esto podría indicar que el uso de "oneway" o "access=no" puede ser más apropiado que el uso de restricciones.';
+					text = 'Las restricciones en este nodo hacen que la calle "' + name + '" sea inaccesible (no se puede entrar desde ninguna calle que esté conectada al nodo vía). Esto podría indicar que el uso de "oneway" o "access=no" puede ser más apropiado que el uso de restricciones.';
 				} else {
 					text = 'Las restricciones en este nodo hacen que una calle sea inaccesible (no se puede entrar desde ninguna calle que esté conectada al nodo vía). Esto puede indicar que el uso de "oneway" o "access=no" puede ser más apropiado que el uso de restricciones.';
 				}
