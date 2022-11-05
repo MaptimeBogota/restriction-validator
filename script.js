@@ -324,17 +324,17 @@ $(document).ready(function() {
 
 			/* Check restriction type */
 			// Check if tag exists
-		//	if(rel.tags.restriction == undefined) {
-		//		// If there are vehicle restrictions we won't show an error, but we don't handle them
-		//		var tags = getElemList(rel.tags, true);
-		//		for(var i = 0; i < tags.length; i++) {
-		//			if(tags[i].startsWith('restriction:') && ! tags[i].startsWith('restriction:conditional')) {
-		//				return;
-		//			}
-		//		};
+			if(rel.tags.restriction == undefined) {
+				// If there are vehicle restrictions we won't show an error, but we don't handle them
+				var tags = getElemList(rel.tags, true);
+				for(var i = 0; i < tags.length; i++) {
+					if(tags[i].startsWith('restriction:') && ! tags[i].startsWith('restriction:conditional')) {
+						return;
+					}
+				};
 		//		showError([via.lat, via.lon], rel, 'No hay etiqueta de "restriction"', false);
-		//		return;
-		//	}
+				return;
+			}
 			var type = rel.tags.restriction;
 			var access = type.split('_')[0]; // no/only
 
