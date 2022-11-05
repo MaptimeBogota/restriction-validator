@@ -332,9 +332,7 @@ $(document).ready(function() {
 						return;
 					}
 				};
-				if(! tags[i].startsWith('restriction:conditional')) {
-					showError([via.lat, via.lon], rel, 'No hay ninguna etiqueta de "restriction"', false);
-				}
+				showError([via.lat, via.lon], rel, 'No hay etiqueta de "restriction"', false);
 				return;
 			}
 			var type = rel.tags.restriction;
